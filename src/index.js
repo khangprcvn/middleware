@@ -1,18 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import Async from './middlewares/async';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-import RootReducer from './reducers/index';
-import { BrowserRouter } from 'react-router-dom';
+import rootReducer from './reducers/index';
 import registerServiceWorker from './registerServiceWorker';
 
-const store = createStore(RootReducer);
+const store = createStore(rootReducer, applyMiddleware(Async));
+
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <App />
   </Provider>,
   document.getElementById('root')
 );
